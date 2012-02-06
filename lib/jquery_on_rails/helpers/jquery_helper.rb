@@ -212,7 +212,7 @@ module JQueryOnRails
             end
     
             def with_formats(*args)
-              @context ? @context.update_details(:formats => args) { yield } : yield
+              @context ? @context.lookup_context.update_details(:formats => args) { yield } : yield
             end
     
             def javascript_object_for(object)
@@ -249,7 +249,7 @@ module JQueryOnRails
       end
     
       def update_page(&block)
-        JavaScriptGenerator.new(view_context, &block).to_s.html_safe
+        JavaScriptGenerator.new(self, &block).to_s.html_safe
       end
     
       def update_page_tag(html_options = {}, &block)
